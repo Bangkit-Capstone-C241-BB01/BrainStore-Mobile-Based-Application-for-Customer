@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginBottom="5dp"
+    card_view:cardCornerRadius="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/productImageView"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:contentDescription="@string/image_product"
+            android:scaleType="centerCrop"
+            android:src="@drawable/sample_image_detail_product1"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/productName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="36dp"
+            android:maxLines="1"
+            android:textSize="14sp"
+            android:fontFamily="@font/balsamiqsans_bold"
+            card_view:layout_constraintStart_toEndOf="@+id/productImageView"
+            card_view:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:text="@string/product_name" />
+
+        <TextView
+            android:id="@+id/productPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="0dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/balsamiqsans_regular"
+            card_view:layout_constraintStart_toEndOf="@+id/productImageView"
+            card_view:layout_constraintTop_toBottomOf="@+id/productName"
+            tools:ignore="MissingConstraints"
+            tools:text="@string/product_price" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="5dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:progressDrawable="@drawable/custom_ratingbar"
+            android:rating="4.5"
+            android:stepSize="0.5"
+            card_view:layout_constraintStart_toEndOf="@+id/productImageView"
+            card_view:layout_constraintTop_toBottomOf="@+id/productPrice" />
+
+        <TextView
+            android:id="@+id/productRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="3dp"
+            android:textSize="12sp"
+            android:fontFamily="@font/balsamiqsans_regular"
+            card_view:layout_constraintStart_toEndOf="@+id/ratingBar"
+            card_view:layout_constraintTop_toBottomOf="@+id/productPrice"
+            tools:ignore="MissingConstraints"
+            tools:text="@string/product_rating" />
+
+        <TextView
+            android:id="@+id/fullProductRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/grey3"
+            android:textSize="12sp"
+            android:fontFamily="@font/balsamiqsans_regular"
+            card_view:layout_constraintStart_toEndOf="@+id/productRate"
+            card_view:layout_constraintTop_toBottomOf="@+id/productPrice"
+            tools:ignore="MissingConstraints"
+            tools:text="@string/full_product_rating" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

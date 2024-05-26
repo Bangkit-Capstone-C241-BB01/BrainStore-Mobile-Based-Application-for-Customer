@@ -1,0 +1,99 @@
+<resources>
+    <string name="app_name">BrainStore</string>
+    <string name="logo">base logo</string>
+    <string name="email">Email</string>
+    <string name="email_hint">Enter your email address..</string>
+    <string name="password">Password</string>
+    <string name="password_hint">Enter your password..</string>
+    <string name="forgot_pass">Forgot your password?</string>
+    <string name="option">or</string>
+    <string name="empty_login_fields">Make sure you have filled in all the data fields above!</string>
+    <string name="welcome_back">Welcome back!</string>
+    <string name="success_login">Successful Login!</string>
+    <string name="cont">Continue</string>
+
+    <string name="login">Login</string>
+    <string name="login_button">Log In</string>
+    <string name="login_page_body">Login Your Account</string>
+    <string name="previous">Previous Icon</string>
+    <string name="register">Registration</string>
+    <string name="regis_page_body">Create Account</string>
+    <string name="name_hint">Enter your full name..</string>
+    <string name="confirm_password_hint">Re-enter the password..</string>
+    <string name="success_regis">Successful Registration!</string>
+    <string name="success_regis_msg">Congratulations %1$s, your account has been successfully registered!</string>
+    <string name="register_button">Register</string>
+    <string name="invalid_name">The name entered is invalid!</string>
+    <string name="invalid_email">The email format is invalid!</string>
+    <string name="invalid_password">Password must not be less than 8 characters!</string>
+    <string name="invalid_confirmation_password">The entered passwords do not match! Please ensure both passwords (password and password confirmation ) you entered are the same.</string>
+    <string name="strong_password">Your password is strong.</string>
+    <string name="weak_password">Use a combination of letters (uppercase and lowercase), numbers, and symbols or special characters.</string>
+
+    <string name="brand_img">Brand Image</string>
+    <string name="welcome_img">Welcome Image</string>
+    <string name="title_welcome_page">Welcome to BrainStore!</string>
+    <string name="message_welcome_page">A convenient shopping app, ready to meet your needs anytime, anywhere.</string>
+
+    <string name="searchbar_hint">Search</string>
+    <string name="camera">Camera</string>
+    <string name="main_image">Main Image</string>
+    <string name="horizontal_all">All</string>
+    <string name="horizontal_newest">Newest</string>
+    <string name="horizontal_popular">Popular</string>
+    <string name="horizontal_location">Location</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_me">Me</string>
+    <string name="image_product">Product Image</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_price">Rp. xxx.000</string>
+    <string name="star_rating">Star Rating</string>
+    <string name="product_rating">Rate</string>
+    <string name="full_product_rating">/5</string>
+    <string name="favorite_fab">Favorites Product</string>
+    <string name="share_fab">Share Product</string>
+    <string name="prev_fab">Previous Page</string>
+    <string name="product_stock">Stock 43</string>
+    <string name="specification">Specification</string>
+    <string name="show_more">More</string>
+    <string name="store_name">Store Name</string>
+    <string name="description">Description</string>
+    <string name="ic_location">Icon Location</string>
+    <string name="location">Location</string>
+    <string name="store_location">City X</string>
+    <string name="data_description">Fabric/Material: Satin/Polyester (Polyester Fiber)
+        \n\nIngredient Content: 91%(Inclusive)-95%(Inclusive)
+        \n\nApplicable Age: Youth (18-25 Years Old)
+        \n\nPopular Elements: Printing and Dyeing
+        \n\nSystem: Ming System
+        \n\nTime to Market: Summer of 2024
+    </string>
+
+    <string name="favorites_title">My Favorites</string>
+    <string name="trash">Delete</string>
+
+    <string name="req">Required</string>
+    <string name="username">Username</string>
+    <string name="user_email">User Email</string>
+    <string name="language_setting">Language Setting</string>
+    <string name="language">Language</string>
+    <string name="help_center_icon">Help Icon</string>
+    <string name="help_center">Help Center</string>
+    <string name="logout_icon">Logout Icon</string>
+    <string name="logout">Logout</string>
+
+    <string name="change_image">Change Image</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="address">Address</string>
+    <string name="edit_data">Edit Data</string>
+    <string name="update_data">Update Data</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="currently_not_available">This Feature is currently not available</string>
+    <string name="empty_list">No Favorite Products!</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+</resources>
