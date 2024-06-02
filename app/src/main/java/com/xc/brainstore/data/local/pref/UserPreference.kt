@@ -1,4 +1,4 @@
-package com.xc.brainstore.data.pref
+package com.xc.brainstore.data.local.pref
 
 import android.content.Context
 import androidx.datastore.core.DataStore

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BrainStore</string>
+    <string name="logo">logo dasar</string>
+    <string name="email">Email</string>
+    <string name="email_hint">Masukkan alamat email..</string>
+    <string name="password">Kata sandi</string>
+    <string name="password_hint">Masukkan kata sandi..</string>
+    <string name="forgot_pass">Lupa kata sandi?</string>
+    <string name="option">atau</string>
+    <string name="empty_login_fields">Pastikan Anda telah mengisi semua kolom data di atas!</string>
+    <string name="welcome_back">Selamat datang kembali!</string>
+    <string name="success_login">Login berhasil!</string>
+    <string name="cont">Lanjut</string>
+
+    <string name="login">Masuk</string>
+    <string name="login_button">Masuk</string>
+    <string name="login_page_body">Masuk ke akun anda</string>
+    <string name="previous">Ikon sebelumnya</string>
+    <string name="register">Pendaftaran</string>
+    <string name="regis_page_body">Buat akun</string>
+    <string name="name_hint">Masukkan nama lengkap..</string>
+    <string name="confirm_password_hint">Masukkan kembali kata sandi..</string>
+    <string name="success_regis">Pendaftaran berhasil!</string>
+    <string name="success_regis_msg">Selamat %1$s, akun Anda telah berhasil didaftarkan!</string>
+    <string name="register_button">Daftar</string>
+    <string name="invalid_name">Nama yang dimasukkan tidak valid!</string>
+    <string name="invalid_email">Email yang dimasukkan tidak valid!</string>
+    <string name="invalid_password">Kata sandi tidak boleh kurang dari 8 karakter!</string>
+    <string name="invalid_confirmation_password">Kata sandi yang dimasukkan tidak cocok! Pastikan kedua kata sandi (kata sandi dan konfirmasi kata sandi) yang Anda masukkan sama.</string>
+    <string name="strong_password">Kata sandi Anda kuat.</string>
+    <string name="weak_password">Gunakan kombinasi huruf (huruf besar dan kecil), angka, dan simbol atau karakter khusus.</string>
+
+    <string name="brand_img">Gambar Merk</string>
+    <string name="welcome_img">Gambar Selamat Datang</string>
+    <string name="title_welcome_page">Selamat datang di BrainStore!</string>
+    <string name="message_welcome_page">Aplikasi belanja yang nyaman, siap memenuhi kebutuhan Anda kapan saja, di mana saja.</string>
+
+    <string name="searchbar_hint">Cari</string>
+    <string name="camera">Kamera</string>
+    <string name="main_image">Gambar Utama</string>
+    <string name="horizontal_all">Semua</string>
+    <string name="horizontal_newest">Terbaru</string>
+    <string name="horizontal_popular">Populer</string>
+    <string name="horizontal_location">Lokasi</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Beranda</string>
+    <string name="title_favorites">Favorit</string>
+    <string name="title_chat">Obrolan</string>
+    <string name="title_me">Akun Saya</string>
+    <string name="title_help_center">Pusat Bantuan</string>
+    <string name="image_product">Gambar Produk</string>
+    <string name="product_name">Nama Produk</string>
+    <string name="product_price">Rp. xxx.000</string>
+    <string name="star_rating">Penilaian Bintang</string>
+    <string name="product_rating">Nilai</string>
+    <string name="full_product_rating">/5</string>
+    <string name="favorite_fab">Produk Favorit</string>
+    <string name="share_fab">Bagikan Produk</string>
+    <string name="prev_fab">Halaman Sebelumnya</string>
+    <string name="product_stock">Stok 43</string>
+    <string name="specification">Spesifikasi</string>
+    <string name="show_more">Lebih Lanjut</string>
+    <string name="store_name">Nama Toko</string>
+    <string name="description">Deskripsi</string>
+    <string name="ic_location">Ikon Lokasi</string>
+    <string name="location">Lokasi</string>
+    <string name="store_location">Kota X</string>
+    <string name="data_description">Fabric/Material: Satin/Polyester (Polyester Fiber)
+        \n\nIngredient Content: 91%(Inclusive)-95%(Inclusive)
+        \n\nApplicable Age: Youth (18-25 Years Old)
+        \n\nPopular Elements: Printing and Dyeing
+        \n\nSystem: Ming System
+        \n\nTime to Market: Summer of 2024
+    </string>
+
+    <string name="favorites_title">Favorit Saya</string>
+    <string name="trash">Hapus</string>
+
+    <string name="req">Wajib</string>
+    <string name="req_failed">Permintaan Gagal!</string>
+    <string name="username">Nama Pengguna</string>
+    <string name="user_email">Email Pengguna</string>
+    <string name="language_setting">Pengaturan Bahasa</string>
+    <string name="language">Bahasa</string>
+    <string name="help_center_icon">Ikon Bantuan</string>
+    <string name="help_center">Pusat Bantuan</string>
+    <string name="logout_icon">Ikon Keluar</string>
+    <string name="logout">Keluar</string>
+
+    <string name="change_image">Ubah Gambar</string>
+    <string name="phone_number">Nomor Telepon</string>
+    <string name="address">Alamat Rumah</string>
+    <string name="edit_data">Edit Data</string>
+    <string name="update_data">Perbarui Data</string>
+    <string name="permission_granted">Izin diberikan</string>
+    <string name="permission_denied">Izin ditolak</string>
+    <string name="req_stor_permission">Izin penyimpanan diperlukan untuk mengakses galeri!</string>
+    <string name="req_permission">Izin Diperlukan</string>
+    <string name="stor_need_permission">Aplikasi ini memerlukan akses untuk mengambil gambar dari galeri!
+Mohon berikan izin dalam pengaturan.</string>
+    <string name="open_setting">Buka Pengaturan</string>
+    <string name="cancel">Batalkan</string>
+    <string name="currently_not_available">Fitur ini saat ini tidak tersedia</string>
+    <string name="empty_list">Tidak ada produk favorit!</string>
+
+</resources>

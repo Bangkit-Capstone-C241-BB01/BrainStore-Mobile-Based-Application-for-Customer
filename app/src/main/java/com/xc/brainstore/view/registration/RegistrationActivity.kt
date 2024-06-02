@@ -71,20 +71,37 @@ class RegistrationActivity : AppCompatActivity() {
             val password = binding.edRegisPassword.text.toString()
             val passwordConfirmation = binding.edRegisPasswordConfirm.text.toString()
             val successMessage = getString(R.string.success_regis_msg, name)
+            val userRegisModel = UserRegistModel(name, email, password, "customer")
 
             if (name.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfirmation.isEmpty()) {
                 showToast(getString(R.string.empty_login_fields))
             } else {
-                val userRegisModel = UserRegistModel(name, email, password)
+                viewModel.getRegisterResponse(userRegisModel)
 
-                AlertDialog.Builder(this).apply {
-                    setTitle(getString(R.string.success_regis))
-                    setMessage(successMessage)
-                    setPositiveButton(getString(R.string.cont)) { _, _ ->
-                        finish()
+                viewModel.isLoading.observe(this) { isLoading ->
+                    showLoading(isLoading)
+                }
+
+                viewModel.isRequestSuccessful.observe(this) { isSuccessful ->
+                    if (isSuccessful) {
+                        AlertDialog.Builder(this).apply {
+                            setTitle(getString(R.string.success_regis))
+                            setMessage(successMessage)
+                            setPositiveButton(getString(R.string.cont)) { _, _ ->
+                                finish()
+                            }
+                            create()
+                            show()
+                        }
+                    } else {
+                        getString(R.string.req_failed)
                     }
-                    create()
-                    show()
+                }
+
+                viewModel.message.observe(this) { message ->
+                    if (message?.isNotEmpty() == true) {
+                        showToast(message)
+                    }
                 }
             }
         }
@@ -94,11 +111,15 @@ class RegistrationActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        binding.prevImgView.setOnClickListener {
+            finish()
+        }
     }
 
-//    private fun showLoading(isLoading: Boolean) {
-//        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-//    }
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

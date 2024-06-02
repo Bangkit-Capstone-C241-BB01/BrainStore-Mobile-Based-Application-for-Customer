@@ -15,6 +15,8 @@ class EditTextName @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : AppCompatEditText(context, attrs) {
 
+    private var preText: String = ""
+
     private val textInputLayout by lazy {
         parent.parent as? TextInputLayout
     }
@@ -26,11 +28,12 @@ class EditTextName @JvmOverloads constructor(
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                error = s.takeIf { it.isNotEmpty() }?.let {
+                error = s.takeIf { it.isNotEmpty() && it != preText }?.let {
                     if (!it.toString()
                             .matches(Validation.nameRegex)
                     ) context.getString(R.string.invalid_name) else null
                 }
+                preText = s.toString()
             }
 
             override fun afterTextChanged(s: Editable) {

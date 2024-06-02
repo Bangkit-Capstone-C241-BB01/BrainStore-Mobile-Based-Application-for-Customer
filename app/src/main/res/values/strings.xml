@@ -47,6 +47,7 @@
     <string name="title_favorites">Favorites</string>
     <string name="title_chat">Chat</string>
     <string name="title_me">Me</string>
+    <string name="title_help_center">Help Center</string>
     <string name="image_product">Product Image</string>
     <string name="product_name">Product Name</string>
     <string name="product_price">Rp. xxx.000</string>
@@ -76,6 +77,7 @@
     <string name="trash">Delete</string>
 
     <string name="req">Required</string>
+    <string name="req_failed">Request Failed!</string>
     <string name="username">Username</string>
     <string name="user_email">User Email</string>
     <string name="language_setting">Language Setting</string>
@@ -90,10 +92,15 @@
     <string name="address">Address</string>
     <string name="edit_data">Edit Data</string>
     <string name="update_data">Update Data</string>
-    <string name="title_activity_test">TestActivity</string>
+    <string name="permission_granted">Permission request granted</string>
+    <string name="permission_denied">Permission request denied</string>
+    <string name="req_stor_permission">Storage permission is required to access the gallery!</string>
+    <string name="req_permission">Permission required</string>
+    <string name="stor_need_permission">This app requires access to retrieve images from the gallery!
+Please grant permission in the settings.</string>
+    <string name="open_setting">open settings</string>
+    <string name="cancel">Cancel</string>
     <string name="currently_not_available">This Feature is currently not available</string>
     <string name="empty_list">No Favorite Products!</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
 
 </resources>

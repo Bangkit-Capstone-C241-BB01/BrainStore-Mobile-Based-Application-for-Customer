@@ -1,8 +1,8 @@
 package com.xc.brainstore.di
 
 import android.content.Context
-import com.xc.brainstore.data.pref.UserPreference
-import com.xc.brainstore.data.pref.dataStore
+import com.xc.brainstore.data.local.pref.UserPreference
+import com.xc.brainstore.data.local.pref.dataStore
 import com.xc.brainstore.data.repository.UserRepository
 
 object Injection {

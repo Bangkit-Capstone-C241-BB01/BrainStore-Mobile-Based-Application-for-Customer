@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_meFragment_to_editMeFragment"
             app:destination="@id/navigation_editMe" />
+        <action
+            android:id="@+id/action_meFragment_to_helpCenterFragment"
+            app:destination="@id/navigation_helpCenter" />
     </fragment>
 
     <fragment
@@ -38,5 +41,11 @@
         android:name="com.xc.brainstore.view.me.editprofile.EditMeFragment"
         android:label="@string/title_me"
         tools:layout="@layout/fragment_edit_me" />
+
+    <fragment
+        android:id="@+id/navigation_helpCenter"
+        android:name="com.xc.brainstore.view.me.helpcenter.HelpCenterFragment"
+        android:label="@string/title_help_center"
+        tools:layout="@layout/fragment_help_center" />
 
 </navigation>
