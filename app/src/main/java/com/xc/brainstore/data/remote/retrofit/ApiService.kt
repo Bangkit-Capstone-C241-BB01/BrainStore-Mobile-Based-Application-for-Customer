@@ -1,11 +1,22 @@
 package com.xc.brainstore.data.remote.retrofit
 
+import com.xc.brainstore.data.model.UserDetailRequest
 import com.xc.brainstore.data.remote.response.LoginResponse
+import com.xc.brainstore.data.remote.response.ProductResponseItem
 import com.xc.brainstore.data.remote.response.RegisterResponse
+import com.xc.brainstore.data.remote.response.SearchResponse
+import com.xc.brainstore.data.remote.response.SellerResponse
+import com.xc.brainstore.data.remote.response.UpdateUserDetailResponse
+import com.xc.brainstore.data.remote.response.UserDetailResponse
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @FormUrlEncoded
@@ -20,63 +31,43 @@ interface ApiService {
     @FormUrlEncoded
     @POST("login")
     fun login(
-        @Field("email") email: String,
-        @Field("password") password: String
+        @Field("user_email") email: String,
+        @Field("user_password") password: String
     ): Call<LoginResponse>
 
-//    @FormUrlEncoded
-//    @POST("user/detail")
-//    fun postUserDetail(
-//        @Field("id") id: Int,
-//        @Field("image") image: string,
-//        @Field("name") name: String,
-//        @Field("email") email: String,
-//        @Field("password") password: String,
-//        @Field("phone_number") phone_number: String,
-//        @Field("address") address: String
-//    ): Call<UserDetailResponse>
+    @GET("profiles")
+    fun getUserDetail(): Call<UserDetailResponse>
 
-//    @GET("user/detail")
-//    fun getUserDetail(
-//        @Field("id") id: Int,
-//        @Field("image") image: string,
-//        @Field("name") name: String,
-//        @Field("email") email: String,
-//        @Field("password") password: String
-//        @Field("phone_number") phone_number: String,
-//        @Field("address") address: String
-//    ): Call<UserDetailResponse>
+    @PUT("profiles")
+    fun putUserDetail(
+        @Body userDetailResponse: UserDetailRequest
+    ): Call<UpdateUserDetailResponse>
 
-//    @GET("product")
-//    fun getProduct(): Call<List<ProductResponse>>
+    @GET("products")
+    fun getProduct(): Call<List<ProductResponseItem>>
 
-//    @GET("search/product")
-//    fun getProductSearch(
-//        @Query("q") name: String
-//    ): Call<ProductResponse>
-//
-//
-//    @GET("product/detail")
-//    fun getProductDetail(
-//        @Field("id") id: Int,
-//        @Field("image") image: string,
-//        @Field("name") name: String,
-//        @Field("price") price: String,
-//        @Field("rating") rating: Int
-//        @Field("stock") stock: Int
-//        @Field("description") description: String,
-//        @Field("specification") specification: String
-//    ): Call<ProductDetailResponse>
+    @GET("customers/products/news")
+    fun getNewestProduct(): Call<List<ProductResponseItem>>
 
-//    @GET("seller")
-//    fun getSeller(
-//        @Field("id") id: Int,
-//        @Field("image") image: string,
-//        @Field("name") name: String,
-//        @Field("location") location: String
-//    ): Call<SellerResponse>
+    @GET("customers/products/rates")
+    fun getPopularProduct(): Call<List<ProductResponseItem>>
 
-//
-//    @GET("product/{product_name}")
-//    fun getDetailProduct(@Path("product_name") product_name: String): Call<DetailProductResponse>
+    @GET("customers/products/locations")
+    fun getLocationProduct(): Call<List<ProductResponseItem>>
+
+    @POST("customers/products?")
+    fun getProductSearch(
+        @Query("product_name") productName: String
+    ): Call<SearchResponse>
+
+    @GET("products/{id}")
+    fun getProductDetail(
+        @Path("id") id: Int?
+    ): Call<ProductResponseItem>
+
+    @GET("stores/{id}")
+    fun getSeller(
+       @Path("id") id: Int?
+    ): Call<SellerResponse>
+
 }

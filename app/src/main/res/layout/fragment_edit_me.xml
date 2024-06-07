@@ -40,6 +40,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="36dp"
         android:text="@string/change_image"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userProfilePicture" />
@@ -176,7 +177,7 @@
         app:layout_constraintTop_toBottomOf="@+id/addressTextView"
         tools:ignore="MissingConstraints">
 
-        <com.xc.brainstore.customview.EditAddress
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ed_editMe_address"
             android:layout_width="match_parent"
             android:layout_height="48dp"

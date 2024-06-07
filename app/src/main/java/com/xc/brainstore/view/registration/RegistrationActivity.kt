@@ -19,6 +19,7 @@ import com.xc.brainstore.data.model.UserRegistModel
 import com.xc.brainstore.databinding.ActivityRegistrationBinding
 import com.xc.brainstore.view.ViewModelFactory
 import com.xc.brainstore.view.login.LoginActivity
+import com.xc.brainstore.view.welcome.WelcomeActivity
 
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistrationBinding
@@ -82,25 +83,33 @@ class RegistrationActivity : AppCompatActivity() {
                     showLoading(isLoading)
                 }
 
-                viewModel.isRequestSuccessful.observe(this) { isSuccessful ->
-                    if (isSuccessful) {
-                        AlertDialog.Builder(this).apply {
-                            setTitle(getString(R.string.success_regis))
-                            setMessage(successMessage)
-                            setPositiveButton(getString(R.string.cont)) { _, _ ->
-                                finish()
-                            }
-                            create()
-                            show()
-                        }
-                    } else {
-                        getString(R.string.req_failed)
-                    }
-                }
-
                 viewModel.message.observe(this) { message ->
-                    if (message?.isNotEmpty() == true) {
-                        showToast(message)
+                    message?.let {
+                        if (it.isNotEmpty()) {
+                            if (it.contains("success", true)) {
+                                showToast(it)
+                                AlertDialog.Builder(this).apply {
+                                    setTitle(getString(R.string.success_regis))
+                                    setMessage(successMessage)
+                                    setPositiveButton(getString(R.string.cont)) { _, _ ->
+                                        val intent = Intent(
+                                            this@RegistrationActivity,
+                                            WelcomeActivity::class.java
+                                        )
+                                        intent.flags =
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                    create()
+                                    show()
+                                }
+                            } else {
+                                showToast(it)
+                                getString(R.string.req_failed)
+                            }
+                            viewModel.clearMessage()
+                        }
                     }
                 }
             }

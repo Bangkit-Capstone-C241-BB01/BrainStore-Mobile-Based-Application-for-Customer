@@ -16,9 +16,9 @@ interface FavoriteDao {
     @Delete
     fun delete(favoriteProduct: FavoriteProduct)
 
-    @Query("SELECT * from favorite_table ORDER BY id ASC")
+    @Query("SELECT * from favorite_table ORDER BY product_id ASC")
     fun getAllFavorites(): LiveData<MutableList<FavoriteProduct>>
 
-    @Query("SELECT * FROM favorite_table WHERE id = :idProduct")
+    @Query("SELECT * FROM favorite_table WHERE product_id = :idProduct")
     fun getFavoriteProductById(idProduct: Int): LiveData<FavoriteProduct?>
 }

@@ -10,12 +10,15 @@ import kotlinx.coroutines.launch
 class RegisViewModel(private val repository: UserRepository) : ViewModel() {
 
     val isLoading: LiveData<Boolean> = repository.isLoading
-    val isRequestSuccessful: LiveData<Boolean> = repository.isRequestSuccessful
     val message: LiveData<String?> get() = repository.message
 
     fun getRegisterResponse(userRegistrationData: UserRegistModel) {
         viewModelScope.launch {
             repository.getRegisterResponse(userRegistrationData)
         }
+    }
+
+    fun clearMessage() {
+        repository.clearMessage()
     }
 }

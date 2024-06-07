@@ -8,6 +8,21 @@
     android:layout_height="match_parent"
     tools:context=".view.home.HomeFragment">
 
+    <ImageView
+        android:id="@+id/prevIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="65dp"
+        android:elevation="20dp"
+        android:contentDescription="@string/previous"
+        android:src="@drawable/baseline_arrow_back_ios_24"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/main_color"
+        tools:ignore="MissingConstraints" />
+
     <com.google.android.material.search.SearchBar
         android:id="@+id/searchBar"
         android:layout_width="0dp"
@@ -19,7 +34,7 @@
         android:backgroundTint="@color/white"
         android:hint="@string/searchbar_hint"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/prevIcon"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/searchbar_menu"
         app:navigationIconTint="@color/main_color"
@@ -51,6 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/searchBar">
 
         <ImageView
+            android:id="@+id/promoImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/main_image"
@@ -72,12 +88,13 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/allCardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:backgroundTint="@color/white_g"
+                android:backgroundTint="@color/main_color"
                 app:cardCornerRadius="5dp">
 
                 <TextView
@@ -89,12 +106,13 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="5dp"
                     android:text="@string/horizontal_all"
-                    android:textColor="@color/main_color"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/newestCardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -118,6 +136,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/popularCardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -141,6 +160,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/locationCardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -171,8 +191,11 @@
         android:id="@+id/rv_product"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
+        android:layout_marginTop="70dp"
+        android:paddingBottom="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
         tools:listitem="@layout/item_product" />
 
     <ProgressBar

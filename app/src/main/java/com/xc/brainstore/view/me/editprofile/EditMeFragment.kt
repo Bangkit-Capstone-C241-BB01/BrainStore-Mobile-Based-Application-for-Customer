@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,12 +19,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.xc.brainstore.BuildConfig
 import com.xc.brainstore.R
+import com.xc.brainstore.data.model.UserDetailRequest
 import com.xc.brainstore.databinding.FragmentEditMeBinding
 import com.xc.brainstore.di.Injection
 import com.xc.brainstore.view.ViewModelFactory
 import com.xc.brainstore.view.main.MainViewModel
+import com.xc.brainstore.view.me.MeViewModel
 
 class EditMeFragment : Fragment() {
     private var _binding: FragmentEditMeBinding? = null
@@ -34,6 +38,11 @@ class EditMeFragment : Fragment() {
     private val viewModel: MainViewModel by lazy {
         val factory = ViewModelFactory(repository)
         ViewModelProvider(this, factory)[MainViewModel::class.java]
+    }
+
+    private val meViewModel: MeViewModel by lazy {
+        val factory = ViewModelFactory(repository)
+        ViewModelProvider(this, factory)[MeViewModel::class.java]
     }
 
     private val requestPermissionLauncher =
@@ -59,6 +68,7 @@ class EditMeFragment : Fragment() {
     ): View {
         _binding = FragmentEditMeBinding.inflate(inflater, container, false)
         setupAction()
+        observeViewModel()
 
         return binding.root
     }
@@ -69,11 +79,26 @@ class EditMeFragment : Fragment() {
         viewModel.getSession().observe(requireActivity()) { user ->
             binding.edEditMeEmail.setText(user.email)
         }
+
+        meViewModel.getUserDetail()
+    }
+
+    private fun observeViewModel() {
+        meViewModel.userDetail.observe(viewLifecycleOwner) { userDetail ->
+            userDetail?.let {
+                Glide.with(this)
+                    .load(userDetail.userImg)
+                    .into(binding.userProfilePicture)
+                binding.edEditMeUsername.text = Editable.Factory.getInstance().newEditable(userDetail.userName ?: "")
+                binding.edEditMeEmail.text = Editable.Factory.getInstance().newEditable(userDetail.userEmail ?: "")
+                binding.edEditMePhoneNum.text = Editable.Factory.getInstance().newEditable(userDetail.userPhone ?: "")
+                binding.edEditMeAddress.text = Editable.Factory.getInstance().newEditable(userDetail.userAddress ?: "")
+            }
+        }
     }
     private fun setupAction() {
         val prevPageIcon = binding.previousPageIcon
         val textName = binding.edEditMeUsername
-        val textEmail = binding.edEditMeEmail
         val textPhoneNum = binding.edEditMePhoneNum
         val textAddress = binding.edEditMeAddress
         val changeImgButton = binding.changeImageButton
@@ -105,21 +130,32 @@ class EditMeFragment : Fragment() {
 
         editDataButton.setOnClickListener {
             textName.isEnabled = true
-            textEmail.isEnabled = true
             textPhoneNum.isEnabled = true
             textAddress.isEnabled = true
+            changeImgButton.visibility = View.VISIBLE
             editDataButton.visibility = View.GONE
             updateDataButton.visibility = View.VISIBLE
         }
 
         updateDataButton.setOnClickListener {
-            //post new data to server API
-            //...
+            val userName = binding.edEditMeUsername.text.toString()
+            val userPhone = binding.edEditMePhoneNum.text.toString()
+            val userAddress = binding.edEditMeAddress.text.toString()
+            val userImg = currentImageUri.toString()
+            val userDetailRequest = UserDetailRequest(userName, userAddress, userPhone, userImg)
+
+            meViewModel.putUserDetail(userDetailRequest, requireContext())
+
+            meViewModel.message.observe(viewLifecycleOwner) {message ->
+                message?.let {
+                    showToast(it)
+                }
+            }
 
             textName.isEnabled = false
-            textEmail.isEnabled = false
             textPhoneNum.isEnabled = false
             textAddress.isEnabled = false
+            changeImgButton.visibility = View.GONE
             updateDataButton.visibility = View.GONE
             editDataButton.visibility = View.VISIBLE
         }

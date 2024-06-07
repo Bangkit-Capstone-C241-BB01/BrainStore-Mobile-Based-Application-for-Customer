@@ -17,31 +17,16 @@ abstract class FavoriteDatabase : RoomDatabase() {
 
         @JvmStatic
         fun getDatabase(context: Context): FavoriteDatabase {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: Room.databaseBuilder(
-                    context.applicationContext,
-                    FavoriteDatabase::class.java, "favorite_database"
-                ).build().also { INSTANCE = it }
+            if (INSTANCE == null) {
+                synchronized(FavoriteDatabase::class.java) {
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
+                        FavoriteDatabase::class.java, "favorite_database"
+                    )
+                        .build()
+                }
             }
+            return INSTANCE as FavoriteDatabase
         }
     }
-
-//    companion object {
-//        @Volatile
-//        private var INSTANCE: FavoriteDatabase? = null
-//
-//        @JvmStatic
-//        fun getDatabase(context: Context): FavoriteDatabase {
-//            if (INSTANCE == null) {
-//                synchronized(FavoriteDatabase::class.java) {
-//                    INSTANCE = Room.databaseBuilder(
-//                        context.applicationContext,
-//                        FavoriteDatabase::class.java, "favorite_database"
-//                    )
-//                        .build()
-//                }
-//            }
-//            return INSTANCE as FavoriteDatabase
-//        }
-//    }
 }

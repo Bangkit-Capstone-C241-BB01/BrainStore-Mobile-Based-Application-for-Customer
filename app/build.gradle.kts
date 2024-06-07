@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 android {
@@ -58,13 +59,14 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("androidx.activity:activity-ktx:1.9.0")
     implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
     implementation("androidx.exifinterface:exifinterface:1.3.7")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
-//    implementation("com.github.yalantis:ucrop:2.2.8")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.1")
+    kapt("androidx.room:room-compiler:2.6.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

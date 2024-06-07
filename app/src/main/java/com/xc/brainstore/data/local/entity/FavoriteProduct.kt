@@ -11,18 +11,18 @@ import kotlinx.parcelize.Parcelize
 data class FavoriteProduct(
     @PrimaryKey(autoGenerate = false)
 
-    @ColumnInfo(name = "id")
-    var id: Int,
+    @ColumnInfo(name = "product_id")
+    var id: Int? = null,
 
-    @ColumnInfo(name = "name")
-    var name: String = "",
+    @ColumnInfo(name = "product_name")
+    var name: String? = null,
 
-    @ColumnInfo(name = "image")
+    @ColumnInfo(name = "product_image")
     var image: String? = null,
 
-    @ColumnInfo(name = "price")
+    @ColumnInfo(name = "product_price")
     var price: String? = null,
 
-    @ColumnInfo(name = "rating")
-    var rating: Int
+    @ColumnInfo(name = "product_rate")
+    var rating: Int? = null
 ) : Parcelable

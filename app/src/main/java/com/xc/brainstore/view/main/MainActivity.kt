@@ -36,7 +36,8 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val navView: BottomNavigationView = binding.navView
-        val navController = binding.navHostFragmentActivityMain.getFragment<NavHostFragment>().navController
+        val navController =
+            binding.navHostFragmentActivityMain.getFragment<NavHostFragment>().navController
         navView.setupWithNavController(navController)
     }
 
@@ -47,7 +48,6 @@ class MainActivity : AppCompatActivity() {
                 finish()
             } else {
                 binding.root.visibility = View.VISIBLE
-                //
             }
         }
     }

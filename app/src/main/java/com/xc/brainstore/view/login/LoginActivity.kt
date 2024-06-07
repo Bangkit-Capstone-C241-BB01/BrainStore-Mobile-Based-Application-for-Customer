@@ -80,28 +80,29 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 viewModel.message.observe(this) { message ->
-                    if (message?.isNotEmpty() == true) {
-                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                viewModel.isRequestSuccessful.observe(this) { isSuccessful ->
-                    if (isSuccessful) {
-                        AlertDialog.Builder(this).apply {
-                            setTitle(getString(R.string.success_login))
-                            setMessage(getString(R.string.welcome_back))
-                            setPositiveButton(getString(R.string.cont)) { _, _ ->
-                                val intent = Intent(context, MainActivity::class.java)
-                                intent.flags =
-                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                startActivity(intent)
-                                finish()
+                    message?.let {
+                        if (it.isNotEmpty()) {
+                            if (it.contains("success", true)) {
+                                showToast(it)
+                                AlertDialog.Builder(this).apply {
+                                    setTitle(getString(R.string.success_login))
+                                    setMessage(getString(R.string.welcome_back))
+                                    setPositiveButton(getString(R.string.cont)) { _, _ ->
+                                        val intent = Intent(context, MainActivity::class.java)
+                                        intent.flags =
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                    create()
+                                    show()
+                                }
+                            } else {
+                                showToast(it)
+                                getString(R.string.req_failed)
                             }
-                            create()
-                            show()
+                            viewModel.clearMessage()
                         }
-                    } else {
-                        getString(R.string.req_failed)
                     }
                 }
             }

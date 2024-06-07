@@ -47,10 +47,11 @@
     <string name="title_favorites">Favorites</string>
     <string name="title_chat">Chat</string>
     <string name="title_me">Me</string>
+    <string name="title_detail">Detail</string>
     <string name="title_help_center">Help Center</string>
     <string name="image_product">Product Image</string>
     <string name="product_name">Product Name</string>
-    <string name="product_price">Rp. xxx.000</string>
+    <string name="product_price">Product Price</string>
     <string name="star_rating">Star Rating</string>
     <string name="product_rating">Rate</string>
     <string name="full_product_rating">/5</string>
@@ -102,5 +103,6 @@ Please grant permission in the settings.</string>
     <string name="cancel">Cancel</string>
     <string name="currently_not_available">This Feature is currently not available</string>
     <string name="empty_list">No Favorite Products!</string>
+    <string name="product_not_found">No product found!</string>
 
 </resources>

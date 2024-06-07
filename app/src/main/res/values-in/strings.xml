@@ -48,10 +48,11 @@
     <string name="title_favorites">Favorit</string>
     <string name="title_chat">Obrolan</string>
     <string name="title_me">Akun Saya</string>
+    <string name="title_detail">Detail</string>
     <string name="title_help_center">Pusat Bantuan</string>
     <string name="image_product">Gambar Produk</string>
     <string name="product_name">Nama Produk</string>
-    <string name="product_price">Rp. xxx.000</string>
+    <string name="product_price">Harga Produk</string>
     <string name="star_rating">Penilaian Bintang</string>
     <string name="product_rating">Nilai</string>
     <string name="full_product_rating">/5</string>
@@ -103,5 +104,6 @@ Mohon berikan izin dalam pengaturan.</string>
     <string name="cancel">Batalkan</string>
     <string name="currently_not_available">Fitur ini saat ini tidak tersedia</string>
     <string name="empty_list">Tidak ada produk favorit!</string>
+    <string name="product_not_found">Produk tidak ditemukan!</string>
 
 </resources>

@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.xc.brainstore.data.local.entity.FavoriteProduct
-import com.xc.brainstore.databinding.ItemProductBinding
+import com.xc.brainstore.databinding.ItemFavoriteBinding
 import com.xc.brainstore.utils.FavoriteDiffCallback
+import com.xc.brainstore.utils.formatRupiah
 
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteProductViewHolder>() {
 
@@ -16,7 +17,7 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteProductView
     private var listener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteProductViewHolder {
-        val binding = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemFavoriteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FavoriteProductViewHolder(binding)
     }
 
@@ -28,7 +29,7 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteProductView
         return favoriteList.size
     }
 
-    inner class FavoriteProductViewHolder(private val binding: ItemProductBinding) :
+    inner class FavoriteProductViewHolder(private val binding: ItemFavoriteBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         init {
@@ -36,13 +37,16 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteProductView
         }
 
         fun bind(favoriteProduct: FavoriteProduct) {
+            val price = favoriteProduct.price.toString()
+            val formattedPrice = formatRupiah(price)
+
             binding.apply {
                 Glide.with(productImageView)
                     .load(favoriteProduct.image)
                     .into(productImageView)
 
                 productName.text = favoriteProduct.name
-                productPrice.text = favoriteProduct.price
+                productPrice.text = formattedPrice
                 productRate.text = favoriteProduct.rating.toString()
             }
         }
