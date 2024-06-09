@@ -9,6 +9,7 @@ import com.xc.brainstore.data.remote.response.ErrorResponse
 import com.xc.brainstore.data.remote.response.ProductResponseItem
 import com.xc.brainstore.data.remote.response.ProductsItem
 import com.xc.brainstore.data.remote.response.SearchResponse
+import com.xc.brainstore.data.remote.response.SellerResponse
 import com.xc.brainstore.data.remote.retrofit.ApiConfig
 import kotlinx.coroutines.flow.first
 import retrofit2.Call
@@ -26,6 +27,9 @@ class ProductRepository private constructor(private val userPreference: UserPref
 
     private val _productDetail = MutableLiveData<ProductResponseItem?>()
     val productDetail: LiveData<ProductResponseItem?> = _productDetail
+
+    private val _storeDetail = MutableLiveData<SellerResponse?>()
+    val storeDetail: LiveData<SellerResponse?> = _storeDetail
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -258,7 +262,7 @@ class ProductRepository private constructor(private val userPreference: UserPref
                     val responseBody = response.body()
                     if (responseBody != null) {
                         _productDetail.value = responseBody
-                        Log.d("detail dari Produk", responseBody.toString())
+                        Log.d("Product Detail", responseBody.toString())
                     } else {
                         Log.e("Get Product Detail", "Response body is null")
                     }
@@ -288,6 +292,50 @@ class ProductRepository private constructor(private val userPreference: UserPref
             }
         })
     }
+
+    suspend fun getStore(id: Int?) {
+        val token = userPreference.getLoginSession().first().token
+        val client = ApiConfig.getApiService(token).getStoreDetail(id)
+
+        client.enqueue(object : Callback<SellerResponse> {
+            override fun onResponse(
+                call: Call<SellerResponse>,
+                response: Response<SellerResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        _storeDetail.value = responseBody
+                        Log.d("Store Detail", responseBody.toString())
+                    } else {
+                        Log.e("Get Store Detail", "Response body is null")
+                    }
+                    Log.d("Get Store Detail", "Successful")
+                } else {
+                    val jsonInString = response.errorBody()?.string()
+                    val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+                    val errorMessage = errorBody?.message ?: response.message()
+                    _message.value = errorMessage
+                    Log.e("Get Store Detail", errorMessage)
+                }
+            }
+
+            override fun onFailure(call: Call<SellerResponse>, t: Throwable) {
+                when (t) {
+                    is UnknownHostException -> {
+                        _message.value = "No Internet Connection!"
+                        Log.e("UnknownHostException", "onFailure: ${t.message.toString()}")
+                    }
+
+                    else -> {
+                        _message.value = t.message.toString()
+                        Log.e("Get Store Detail", "onFailure: ${t.message.toString()}")
+                    }
+                }
+            }
+        })
+    }
+
 
     fun clearSearch() {
         _productData.value = emptyList()

@@ -14,6 +14,7 @@ class HelpCenterFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.progressBar.visibility = View.GONE
     }
 
     override fun onCreateView(

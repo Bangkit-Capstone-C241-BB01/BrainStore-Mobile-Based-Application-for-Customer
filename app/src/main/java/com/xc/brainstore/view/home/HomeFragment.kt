@@ -1,7 +1,10 @@
 package com.xc.brainstore.view.home
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,21 +15,25 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.search.SearchView
 import com.xc.brainstore.R
 import com.xc.brainstore.data.remote.response.ProductResponseItem
 import com.xc.brainstore.data.remote.response.ProductsItem
+import com.xc.brainstore.data.remote.response.SellerResponse
 import com.xc.brainstore.databinding.FragmentHomeBinding
 import com.xc.brainstore.di.Injection
 import com.xc.brainstore.view.ProductViewModelFactory
 import com.xc.brainstore.view.adapter.ProductAdapter
+import com.xc.brainstore.view.detail.DetailProductActivity
 import com.xc.brainstore.view.detail.DetailProductViewModel
 
 class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var productAdapter: ProductAdapter
+    private var productDetail: ProductResponseItem? = null
+    private var storeDetail: SellerResponse? = null
     private val repository by lazy { Injection.provideProductRepository(requireActivity()) }
 
     private val homeViewModel: HomeViewModel by lazy {
@@ -48,9 +55,13 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
         setupRecyclerView()
         observeViewModel()
         setupCardViewListeners()
-        homeViewModel.getProduct()
+
+        if (homeViewModel.productList.value.isNullOrEmpty()) {
+            homeViewModel.getProduct()
+        }
 
         with(binding) {
+            var searched = false
             searchView.setupWithSearchBar(searchBar)
             searchView
                 .editText
@@ -60,19 +71,35 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
                         homeViewModel.searchProduct(query)
                         searchBar.setText(query)
                         searchView.hide()
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            prevIcon.visibility = View.VISIBLE
+                        }, 300)
+                        searched = true
                         true
                     } else {
                         false
                     }
                 }
-            false
-        }
-                
-        binding.prevIcon.setOnClickListener {
-            binding.searchBar.setText("")
-            binding.cardView.visibility = View.VISIBLE
-            binding.prevIcon.visibility = View.GONE
-            homeViewModel.getProduct()
+
+            searchView.addTransitionListener { _, _, newState ->
+                if (newState == SearchView.TransitionState.SHOWN) {
+                    prevIcon.visibility = View.GONE
+                } else if (newState == SearchView.TransitionState.HIDDEN) {
+                    if (searched) {
+                        prevIcon.visibility = View.VISIBLE
+                    } else {
+                        prevIcon.visibility = View.GONE
+                    }
+                }
+            }
+
+            prevIcon.setOnClickListener {
+                searchBar.setText("")
+                prevIcon.visibility = View.GONE
+                searchBar.clearFocus()
+                cardView.visibility = View.VISIBLE
+                homeViewModel.getProduct()
+            }
         }
 
         return binding.root
@@ -98,7 +125,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
             showLoading(isLoading)
         }
 
-        homeViewModel.message.observe(viewLifecycleOwner) {message ->
+        homeViewModel.message.observe(viewLifecycleOwner) { message ->
             message?.let {
                 showToast(it)
             }
@@ -109,23 +136,40 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
             binding.cardView.visibility = View.GONE
         }
 
-        detailViewModel.productDetail.observe(viewLifecycleOwner) { productDetail ->
-            val bundle = Bundle().apply {
-                putParcelable("PRODUCT_DATA", productDetail)
+        detailViewModel.productDetail.observe(viewLifecycleOwner) { detail ->
+            detailViewModel.storeDetail.observe(viewLifecycleOwner) { storeDetails ->
+                productDetail = detail
+                storeDetail = storeDetails
+                checkIfReadyToNavigate()
             }
-
-            findNavController().navigate(R.id.action_homeFragment_to_detailFragment, bundle)
         }
 
         detailViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             showLoading(isLoading)
         }
 
-        detailViewModel.message.observe(viewLifecycleOwner) {message ->
+        detailViewModel.message.observe(viewLifecycleOwner) { message ->
             message?.let {
                 showToast(it)
             }
         }
+    }
+
+    private fun checkIfReadyToNavigate() {
+        if (productDetail != null && storeDetail != null) {
+            navigateToDetailFragment(productDetail!!, storeDetail!!)
+        }
+    }
+
+    private fun navigateToDetailFragment(
+        productDetail: ProductResponseItem,
+        storeDetail: SellerResponse
+    ) {
+        val intent = Intent(requireContext(), DetailProductActivity::class.java).apply {
+            putExtra("PRODUCT_DATA", productDetail)
+            putExtra("STORE_DATA", storeDetail)
+        }
+        startActivity(intent)
     }
 
     private fun setupCardViewListeners() {
@@ -175,10 +219,12 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
 
     private fun updateCardSelection(cardView: CardView, textView: TextView, isSelected: Boolean) {
         if (isSelected) {
-            cardView.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.main_color))
+            cardView.backgroundTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.main_color))
             textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white_g))
         } else {
-            cardView.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white_g))
+            cardView.backgroundTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white_g))
             textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.main_color))
         }
     }
@@ -195,10 +241,12 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
         when (product) {
             is ProductResponseItem -> {
                 detailViewModel.getProductDetail(product.productId)
+                detailViewModel.getStoreDetail(product.storeId)
             }
 
             is ProductsItem -> {
                 detailViewModel.getProductDetail(product.productId)
+                detailViewModel.getStoreDetail(product.storeId)
             }
 
             else -> return

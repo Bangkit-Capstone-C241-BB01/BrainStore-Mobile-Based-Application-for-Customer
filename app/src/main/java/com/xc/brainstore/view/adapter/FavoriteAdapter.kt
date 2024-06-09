@@ -37,17 +37,16 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteProductView
         }
 
         fun bind(favoriteProduct: FavoriteProduct) {
-            val price = favoriteProduct.price.toString()
+            val price = favoriteProduct.productPrice.toString()
             val formattedPrice = formatRupiah(price)
 
             binding.apply {
                 Glide.with(productImageView)
-                    .load(favoriteProduct.image)
+                    .load(favoriteProduct.productImg)
                     .into(productImageView)
-
-                productName.text = favoriteProduct.name
+                productName.text = favoriteProduct.productName
                 productPrice.text = formattedPrice
-                productRate.text = favoriteProduct.rating.toString()
+                productRate.text = favoriteProduct.productRate
             }
         }
 

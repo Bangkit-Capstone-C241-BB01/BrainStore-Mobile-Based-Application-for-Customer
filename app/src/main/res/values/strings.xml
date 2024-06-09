@@ -105,4 +105,9 @@ Please grant permission in the settings.</string>
     <string name="empty_list">No Favorite Products!</string>
     <string name="product_not_found">No product found!</string>
 
+    <string name="delete_confirmation">Delete Confirmation</string>
+    <string name="delete_confirmation_question">Are you sure you want to delete all of the favorite products?</string>
+    <string name="yes_act">Yes</string>
+    <string name="no_act">No</string>
+
 </resources>

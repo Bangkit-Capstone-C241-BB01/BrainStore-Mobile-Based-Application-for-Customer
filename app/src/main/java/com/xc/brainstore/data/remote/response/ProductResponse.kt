@@ -19,9 +19,6 @@ data class ProductResponseItem(
     @field:SerializedName("product_rate")
     val productRate: String? = null,
 
-    @field:SerializedName("created_at")
-    val createdAt: String? = null,
-
     @field:SerializedName("product_price")
     val productPrice: String? = null,
 
@@ -40,18 +37,7 @@ data class ProductResponseItem(
     @field:SerializedName("product_id")
     val productId: Int? = null,
 
-    @field:SerializedName("img_quality")
-    val imgQuality: String? = null,
-
-    @field:SerializedName("store_name")
-    val storeName: String? = null,
-
     @field:SerializedName("product_stock")
-    val productStock: Int? = null,
+    val productStock: Int? = null
 
-    @field:SerializedName("product_category")
-    val productCategory: String? = null,
-
-    @field:SerializedName("store_location")
-    val storeLocation: String? = null
 ) : Parcelable

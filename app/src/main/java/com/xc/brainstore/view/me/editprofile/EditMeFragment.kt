@@ -20,13 +20,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.xc.brainstore.BuildConfig
 import com.xc.brainstore.R
-import com.xc.brainstore.data.model.UserDetailRequest
+import com.xc.brainstore.data.remote.response.UserDetailResponse
 import com.xc.brainstore.databinding.FragmentEditMeBinding
 import com.xc.brainstore.di.Injection
+import com.xc.brainstore.utils.reduceFileImage
+import com.xc.brainstore.utils.uriToFile
 import com.xc.brainstore.view.ViewModelFactory
-import com.xc.brainstore.view.main.MainViewModel
 import com.xc.brainstore.view.me.MeViewModel
 
 class EditMeFragment : Fragment() {
@@ -34,11 +34,6 @@ class EditMeFragment : Fragment() {
     private val binding get() = _binding!!
     private var currentImageUri: Uri? = null
     private val repository by lazy { Injection.provideRepository(requireActivity()) }
-
-    private val viewModel: MainViewModel by lazy {
-        val factory = ViewModelFactory(repository)
-        ViewModelProvider(this, factory)[MainViewModel::class.java]
-    }
 
     private val meViewModel: MeViewModel by lazy {
         val factory = ViewModelFactory(repository)
@@ -68,34 +63,37 @@ class EditMeFragment : Fragment() {
     ): View {
         _binding = FragmentEditMeBinding.inflate(inflater, container, false)
         setupAction()
-        observeViewModel()
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.getSession().observe(requireActivity()) { user ->
-            binding.edEditMeEmail.setText(user.email)
-        }
-
         meViewModel.getUserDetail()
+        observeViewModel()
     }
 
     private fun observeViewModel() {
         meViewModel.userDetail.observe(viewLifecycleOwner) { userDetail ->
             userDetail?.let {
-                Glide.with(this)
-                    .load(userDetail.userImg)
-                    .into(binding.userProfilePicture)
-                binding.edEditMeUsername.text = Editable.Factory.getInstance().newEditable(userDetail.userName ?: "")
-                binding.edEditMeEmail.text = Editable.Factory.getInstance().newEditable(userDetail.userEmail ?: "")
-                binding.edEditMePhoneNum.text = Editable.Factory.getInstance().newEditable(userDetail.userPhone ?: "")
-                binding.edEditMeAddress.text = Editable.Factory.getInstance().newEditable(userDetail.userAddress ?: "")
+                updateUI(userDetail)
+            }
+        }
+
+        meViewModel.message.observe(viewLifecycleOwner) { message ->
+            message?.let {
+                if (it.isNotEmpty()) {
+                    if (it.contains("updated", true)) {
+                        showToast(it)
+                        meViewModel.getUserDetail()
+                    } else {
+                        showToast(it)
+                    }
+                    meViewModel.clearMessage()
+                }
             }
         }
     }
+
     private fun setupAction() {
         val prevPageIcon = binding.previousPageIcon
         val textName = binding.edEditMeUsername
@@ -138,18 +136,15 @@ class EditMeFragment : Fragment() {
         }
 
         updateDataButton.setOnClickListener {
+            val userImg = currentImageUri?.let { uriToFile(it, requireContext()).reduceFileImage() }
             val userName = binding.edEditMeUsername.text.toString()
             val userPhone = binding.edEditMePhoneNum.text.toString()
             val userAddress = binding.edEditMeAddress.text.toString()
-            val userImg = currentImageUri.toString()
-            val userDetailRequest = UserDetailRequest(userName, userAddress, userPhone, userImg)
 
-            meViewModel.putUserDetail(userDetailRequest, requireContext())
-
-            meViewModel.message.observe(viewLifecycleOwner) {message ->
-                message?.let {
-                    showToast(it)
-                }
+            if (userImg != null) {
+                meViewModel.putUserDetail(userImg, userName, userPhone, userAddress)
+            } else {
+                meViewModel.putUserDetailWithoutImg(userName, userPhone, userAddress)
             }
 
             textName.isEnabled = false
@@ -161,10 +156,24 @@ class EditMeFragment : Fragment() {
         }
     }
 
+    private fun updateUI(userDetail: UserDetailResponse) {
+        Glide.with(this)
+            .load(userDetail.userImg)
+            .into(binding.userProfilePicture)
+        binding.edEditMeUsername.text =
+            Editable.Factory.getInstance().newEditable(userDetail.userName ?: "")
+        binding.edEditMeEmail.text =
+            Editable.Factory.getInstance().newEditable(userDetail.userEmail ?: "")
+        binding.edEditMePhoneNum.text =
+            Editable.Factory.getInstance().newEditable(userDetail.userPhone ?: "")
+        binding.edEditMeAddress.text =
+            Editable.Factory.getInstance().newEditable(userDetail.userAddress ?: "")
+    }
+
     private fun showPermissionSettings() {
         Intent().also {
             it.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-            val uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
+            val uri = Uri.fromParts("package", requireContext().packageName, null)
             it.data = uri
             startActivity(it)
         }

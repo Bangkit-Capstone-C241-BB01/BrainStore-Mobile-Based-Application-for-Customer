@@ -1,18 +1,15 @@
 package com.xc.brainstore.view.me
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.xc.brainstore.data.model.UserDetailRequest
-import com.xc.brainstore.data.remote.response.UpdateUserDetailResponse
 import com.xc.brainstore.data.remote.response.UserDetailResponse
 import com.xc.brainstore.data.repository.UserRepository
 import kotlinx.coroutines.launch
+import java.io.File
 
 class MeViewModel(private val repository: UserRepository) : ViewModel() {
     val userDetail: LiveData<UserDetailResponse> = repository.userDetail
-    val newUserDetail: LiveData<UpdateUserDetailResponse> = repository.newUserDetail
     val message: LiveData<String?> get() = repository.message
 
     fun getUserDetail() {
@@ -21,9 +18,24 @@ class MeViewModel(private val repository: UserRepository) : ViewModel() {
         }
     }
 
-    fun putUserDetail(userDetailRequest: UserDetailRequest, context: Context) {
+    fun putUserDetail(
+        userImage: File,
+        userName: String,
+        userPhone: String,
+        userAddress: String
+    ) {
         viewModelScope.launch {
-            repository.putUserDetail(userDetailRequest, context)
+            repository.putUserDetail(userImage, userName, userPhone, userAddress)
+        }
+    }
+
+    fun putUserDetailWithoutImg(
+        userName: String,
+        userPhone: String,
+        userAddress: String
+    ) {
+        viewModelScope.launch {
+            repository.putUserDetailWithoutImg(userName, userPhone, userAddress)
         }
     }
 

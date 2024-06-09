@@ -106,4 +106,9 @@ Mohon berikan izin dalam pengaturan.</string>
     <string name="empty_list">Tidak ada produk favorit!</string>
     <string name="product_not_found">Produk tidak ditemukan!</string>
 
+    <string name="delete_confirmation">Konfirmasi Penghapusan</string>
+    <string name="delete_confirmation_question">Apakah Anda yakin ingin menghapus semua produk favorit?</string>
+    <string name="yes_act">Ya</string>
+    <string name="no_act">Tidak</string>
+
 </resources>

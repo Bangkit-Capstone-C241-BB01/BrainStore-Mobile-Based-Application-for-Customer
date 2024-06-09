@@ -31,6 +31,12 @@ class FavoriteViewModel(private val favoriteRepository: FavoriteRepository) : Vi
         }
     }
 
+    fun deleteAll() {
+        viewModelScope.launch {
+            favoriteRepository.deleteAll()
+        }
+    }
+
     fun getFavoriteProductById(id: Int): LiveData<FavoriteProduct?> {
         return favoriteRepository.getFavoriteProductById(id)
     }

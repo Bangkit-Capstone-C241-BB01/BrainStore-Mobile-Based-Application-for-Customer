@@ -30,6 +30,14 @@ class FavoriteRepository(private val favoriteDao: FavoriteDao) {
         }
     }
 
+    fun deleteAll() {
+        mScope.launch {
+            withContext(Dispatchers.IO) {
+                favoriteDao.deleteAll()
+            }
+        }
+    }
+
     fun getFavoriteProductById(id: Int): LiveData<FavoriteProduct?> {
         return favoriteDao.getFavoriteProductById(id)
     }

@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- Base application theme. -->
     <style name="Base.Theme.BrainStore" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -17,8 +17,26 @@
         <item name="android:background">@color/white_2</item>
     </style>
 
+    <style name="bg_main3">
+        <item name="android:background">@color/white_g</item>
+    </style>
+
+    <style name="searchBar">
+        <item name="backgroundTint">@color/white</item>
+        <item name="navigationIconTint">@color/main_color</item>
+        <item name="strokeColor">@color/light_grey</item>
+    </style>
+
     <style name="SearchBarCorner">
         <item name="cornerSize">5dp</item>
+    </style>
+
+    <style name="horizontalSV">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="itemCardView">
+        <item name="android:backgroundTint">@color/white</item>
     </style>
 
     <style name="CustomButtonStyle1" parent="Widget.Material3.Button.OutlinedButton">
@@ -69,5 +87,25 @@
         <item name="android:textColor">@color/main_color</item>
         <item name="android:textSize">14sp</item>
     </style>
+
+    <style name="title">
+        <item name="android:textColor">@color/main_color</item>
+    </style>
+
+    <style name="hr">
+        <item name="android:background">@color/main_color</item>
+    </style>
+
+    <style name="msg">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="bottomNav">
+        <item name="android:background">@color/white</item>
+        <item name="itemIconTint">@color/main_color</item>
+        <item name="itemTextColor">@color/main_color</item>
+    </style>
+
+    <style name="BottomAppBarBehavior" app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
 
 </resources>

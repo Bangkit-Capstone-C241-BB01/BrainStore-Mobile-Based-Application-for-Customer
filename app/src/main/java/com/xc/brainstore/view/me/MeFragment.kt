@@ -3,7 +3,6 @@ package com.xc.brainstore.view.me
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.xc.brainstore.R
+import com.xc.brainstore.data.remote.response.UserDetailResponse
 import com.xc.brainstore.databinding.FragmentMeBinding
 import com.xc.brainstore.di.Injection
 import com.xc.brainstore.view.ViewModelFactory
@@ -37,19 +37,12 @@ class MeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.userDetail.observe(viewLifecycleOwner) { userDetail->
-            Log.d("Me Frag", userDetail.toString())
+        viewModel.getUserDetail()
+        viewModel.userDetail.observe(viewLifecycleOwner) { userDetail ->
             userDetail?.let {
-                Glide.with(this)
-                    .load(userDetail.userImg)
-                    .into(binding.userProfilePicture)
-                binding.profileUsername.text = userDetail.userName
-                binding.profileUserEmail.text = userDetail.userEmail
+                updateUI(userDetail)
             }
         }
-
-        viewModel.getUserDetail()
 
         setupAction()
     }
@@ -74,6 +67,14 @@ class MeFragment : Fragment() {
         binding.cardViewLogout.setOnClickListener {
             viewModel.logout()
         }
+    }
+
+    private fun updateUI(userDetail: UserDetailResponse) {
+        Glide.with(this)
+            .load(userDetail.userImg)
+            .into(binding.userProfilePicture)
+        binding.profileUsername.text = userDetail.userName
+        binding.profileUserEmail.text = userDetail.userEmail
     }
 
     private fun setLanguageSettingsClickListener(vararg views: View) {

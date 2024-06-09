@@ -10,16 +10,6 @@
         android:name="com.xc.brainstore.view.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_detailFragment"
-            app:destination="@id/navigation_detail" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_detail"
-        android:name="com.xc.brainstore.view.detail.DetailProductFragment"
-        android:label="@string/title_detail"
-        tools:layout="@layout/fragment_detail_product" >
     </fragment>
 
     <fragment
@@ -27,9 +17,6 @@
         android:name="com.xc.brainstore.view.favorites.FavoriteFragment"
         android:label="@string/title_favorites"
         tools:layout="@layout/fragment_favorite" >
-        <action
-            android:id="@+id/action_favoriteFragment_to_detailFragment"
-            app:destination="@id/navigation_detail" />
     </fragment>
 
     <fragment

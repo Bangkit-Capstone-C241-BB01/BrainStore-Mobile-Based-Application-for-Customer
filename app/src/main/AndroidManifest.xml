@@ -19,6 +19,10 @@
         android:theme="@style/Theme.BrainStore"
         tools:targetApi="31">
         <activity
+            android:name=".view.detail.DetailProductActivity"
+            android:launchMode="singleTop"
+            android:exported="false" />
+        <activity
             android:name=".view.main.MainActivity"
             android:exported="false" />
         <activity

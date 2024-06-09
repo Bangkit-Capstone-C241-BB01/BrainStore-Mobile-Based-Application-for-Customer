@@ -21,6 +21,7 @@
     <color name="dark_2">#353535</color>
     <color name="dark_text">#FFFFFF</color>
     <color name="dark_grey">#3D3D3D</color>
+    <color name="dark_grey3">#323232</color>
     <color name="yellow">#FFD00B</color>
     <color name="yellow_or">#FBA834</color>
     <color name="dark_accent">#FF79C6</color>
@@ -28,5 +29,6 @@
     <color name="semi_transparent">#80000000</color>
     <color name="red">#FF0000</color>
     <color name="white_g">#F0F0F3</color>
+    <color name="white_bg">#D3D3D3</color>
     <color name="grey3">#737373</color>
 </resources>

@@ -51,7 +51,6 @@ class ProductAdapter : ListAdapter<Any, RecyclerView.ViewHolder>(DIFF_CALLBACK) 
                 Glide.with(binding.productImageView)
                     .load(product.productImg)
                     .into(binding.productImageView)
-
                 productName.text = product.productName
                 productPrice.text = formattedPrice
                 productRate.text = product.productRate
@@ -66,7 +65,6 @@ class ProductAdapter : ListAdapter<Any, RecyclerView.ViewHolder>(DIFF_CALLBACK) 
                 Glide.with(productImageView)
                     .load(productItem.productImg)
                     .into(productImageView)
-
                 productName.text = productItem.productName
                 productPrice.text = formattedPrice
                 productRate.text = productItem.productRate

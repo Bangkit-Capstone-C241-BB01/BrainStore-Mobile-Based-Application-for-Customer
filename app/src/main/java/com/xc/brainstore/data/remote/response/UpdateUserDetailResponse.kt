@@ -12,31 +12,18 @@ data class UpdateUserDetailResponse(
 )
 
 data class Data(
-
-	@field:SerializedName("user_role")
-	val userRole: String? = null,
-
-	@field:SerializedName("user_email")
-	val userEmail: String? = null,
-
-	@field:SerializedName("updated_at")
-	val updatedAt: String? = null,
-
-	@field:SerializedName("user_id")
-	val userId: Int? = null,
+	@field:SerializedName("img_user")
+	val userImg: String? = null,
 
 	@field:SerializedName("user_name")
 	val userName: String? = null,
 
-	@field:SerializedName("user_address")
-	val userAddress: String? = null,
+	@field:SerializedName("user_email")
+	val userEmail: String? = null,
 
 	@field:SerializedName("user_phone")
 	val userPhone: String? = null,
 
-	@field:SerializedName("created_at")
-	val createdAt: String? = null,
-
-	@field:SerializedName("user_img")
-	val userImg: String? = null
+	@field:SerializedName("user_address")
+	val userAddress: String? = null
 )

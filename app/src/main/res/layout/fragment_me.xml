@@ -87,12 +87,13 @@
 
             <ImageView
                 android:id="@+id/languageSettingIcon"
+                style="@style/icon"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/ic_lang"
                 android:contentDescription="@string/language_setting"
+                android:src="@drawable/ic_lang"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -111,6 +112,7 @@
 
             <ImageView
                 android:id="@+id/langArrow"
+                style="@style/icon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="32dp"
@@ -121,11 +123,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
+                style="@style/hr"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/main_color"
                 app:layout_constraintBottom_toTopOf="@+id/helpSettingTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -133,12 +135,13 @@
 
             <ImageView
                 android:id="@+id/helpSettingIcon"
+                style="@style/icon"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/ic_help_center"
                 android:contentDescription="@string/help_center_icon"
+                android:src="@drawable/ic_help_center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -157,6 +160,7 @@
 
             <ImageView
                 android:id="@+id/helpArrow"
+                style="@style/icon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginEnd="25dp"
@@ -190,12 +194,13 @@
 
             <ImageView
                 android:id="@+id/logoutIcon"
+                style="@style/icon"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/ic_logout"
                 android:contentDescription="@string/logout_icon"
+                android:src="@drawable/ic_logout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -214,6 +219,7 @@
 
             <ImageView
                 android:id="@+id/logoutArrow"
+                style="@style/icon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="32dp"

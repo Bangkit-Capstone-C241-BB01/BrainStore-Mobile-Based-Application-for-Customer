@@ -10,6 +10,7 @@
     android:layout_marginTop="4dp"
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="4dp"
+    style="@style/itemCardView"
     card_view:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,13 +32,13 @@
 
         <TextView
             android:id="@+id/productName"
+            style="@style/msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:textSize="14sp"
             android:fontFamily="@font/balsamiqsans_bold"
-            android:textColor="@color/black"
             android:maxLines="1"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/productImageView"
@@ -46,13 +47,13 @@
 
         <TextView
             android:id="@+id/productPrice"
+            style="@style/msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:textSize="14sp"
             android:fontFamily="@font/balsamiqsans_regular"
-            android:textColor="@color/black"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/productName"
             tools:ignore="MissingConstraints"
