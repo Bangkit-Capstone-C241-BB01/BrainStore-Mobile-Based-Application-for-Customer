@@ -32,4 +32,10 @@ class DetailProductViewModel(private val repository: ProductRepository) : ViewMo
             repository.clearProductDetail()
         }
     }
+
+    fun clearStoreDetail() {
+        viewModelScope.launch {
+            repository.clearStoreDetail()
+        }
+    }
 }

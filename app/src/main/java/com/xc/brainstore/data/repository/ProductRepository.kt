@@ -345,6 +345,10 @@ class ProductRepository private constructor(private val userPreference: UserPref
         _productDetail.value = null
     }
 
+    fun clearStoreDetail() {
+        _storeDetail.value = null
+    }
+
     companion object {
         @Volatile
         private var instance: ProductRepository? = null

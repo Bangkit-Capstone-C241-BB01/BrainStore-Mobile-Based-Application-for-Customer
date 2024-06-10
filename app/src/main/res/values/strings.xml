@@ -58,7 +58,7 @@
     <string name="favorite_fab">Favorites Product</string>
     <string name="share_fab">Share Product</string>
     <string name="prev_fab">Previous Page</string>
-    <string name="product_stock">Stock 43</string>
+    <string name="product_stock">Stock %1$s</string>
     <string name="specification">Specification</string>
     <string name="show_more">More</string>
     <string name="store_name">Store Name</string>
@@ -109,5 +109,8 @@ Please grant permission in the settings.</string>
     <string name="delete_confirmation_question">Are you sure you want to delete all of the favorite products?</string>
     <string name="yes_act">Yes</string>
     <string name="no_act">No</string>
+
+    <string name="share_via">Share Via: </string>
+    <string name="share_msg">Check out this product called %1$s from %2$s store in the BrainStore app!</string>
 
 </resources>

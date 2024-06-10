@@ -59,7 +59,7 @@
     <string name="favorite_fab">Produk Favorit</string>
     <string name="share_fab">Bagikan Produk</string>
     <string name="prev_fab">Halaman Sebelumnya</string>
-    <string name="product_stock">Stok 43</string>
+    <string name="product_stock">Stok %1$s</string>
     <string name="specification">Spesifikasi</string>
     <string name="show_more">Lebih Lanjut</string>
     <string name="store_name">Nama Toko</string>
@@ -110,5 +110,8 @@ Mohon berikan izin dalam pengaturan.</string>
     <string name="delete_confirmation_question">Apakah Anda yakin ingin menghapus semua produk favorit?</string>
     <string name="yes_act">Ya</string>
     <string name="no_act">Tidak</string>
+
+    <string name="share_via">Bagikan Melalui: </string>
+    <string name="share_msg">Lihat produk bernama %1$s dari toko %2$s ini di aplikasi BrainStore!</string>
 
 </resources>

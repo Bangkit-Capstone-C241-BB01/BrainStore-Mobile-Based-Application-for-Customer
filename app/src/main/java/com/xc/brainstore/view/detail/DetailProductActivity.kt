@@ -69,7 +69,7 @@ class DetailProductActivity : AppCompatActivity() {
                     productName.text = productDetailList.productName
                     productPrice.text = formattedPrice
                     productRate.text = productDetailList.productRate
-                    productStock.text = productDetailList.productStock.toString()
+                    productStock.text = getString(R.string.product_stock, productDetailList.productStock.toString())
                     productSpecification.text = productDetailList.productSpec
                     productDescription.text = productDetailList.productDesc
                     Glide.with(this@DetailProductActivity)
@@ -98,12 +98,13 @@ class DetailProductActivity : AppCompatActivity() {
 
         binding.fabShare.setOnClickListener {
             val nProductName = productDetailList?.productName
+            val nStoreDetailName = intent.getParcelableExtra<SellerResponse>("STORE_DATA")?.storeName
             val shareIntent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "Check out this product on BrainStore: $nProductName!")
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.share_msg, nProductName, nStoreDetailName))
                 type = "text/plain"
             }
-            startActivity(Intent.createChooser(shareIntent, "Share via"))
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.share_via)))
         }
 
         productDetailList?.let {

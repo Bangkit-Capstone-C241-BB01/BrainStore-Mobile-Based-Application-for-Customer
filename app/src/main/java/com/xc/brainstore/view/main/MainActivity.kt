@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupView() {
         supportActionBar?.hide()
-
         val navView: BottomNavigationView = binding.navView
         val navController =
             binding.navHostFragmentActivityMain.getFragment<NavHostFragment>().navController

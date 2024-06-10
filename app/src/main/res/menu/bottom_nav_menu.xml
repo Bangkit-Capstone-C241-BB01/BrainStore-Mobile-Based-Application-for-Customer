@@ -19,5 +19,4 @@
         android:id="@+id/navigation_me"
         android:icon="@drawable/user"
         android:title="@string/title_me" />
-
 </menu>

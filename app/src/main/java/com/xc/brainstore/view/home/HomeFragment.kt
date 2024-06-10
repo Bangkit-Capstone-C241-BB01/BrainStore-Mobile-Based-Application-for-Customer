@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -98,6 +99,11 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
                 prevIcon.visibility = View.GONE
                 searchBar.clearFocus()
                 cardView.visibility = View.VISIBLE
+
+                updateCardSelection(binding.allCardView, binding.all, true)
+                updateCardSelection(binding.newestCardView, binding.newest, false)
+                updateCardSelection(binding.popularCardView, binding.popular, false)
+                updateCardSelection(binding.locationCardView, binding.location, false)
                 homeViewModel.getProduct()
             }
         }
@@ -157,7 +163,10 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
 
     private fun checkIfReadyToNavigate() {
         if (productDetail != null && storeDetail != null) {
+            Log.d("HomeFragment", "Navigating to DetailProductActivity")
             navigateToDetailFragment(productDetail!!, storeDetail!!)
+            productDetail = null
+            storeDetail = null
         }
     }
 
@@ -169,11 +178,11 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
             putExtra("PRODUCT_DATA", productDetail)
             putExtra("STORE_DATA", storeDetail)
         }
+        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
     }
 
     private fun setupCardViewListeners() {
-
         val allCV = binding.allCardView
         val newestCV = binding.newestCardView
         val popularCV = binding.popularCardView
@@ -252,4 +261,12 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
             else -> return
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("HomeFragment", "onResume called")
+        detailViewModel.clearProductDetail()
+        detailViewModel.clearStoreDetail()
+    }
+
 }

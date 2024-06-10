@@ -3,16 +3,10 @@ package com.xc.brainstore.view.favorites
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xc.brainstore.R
@@ -41,6 +35,12 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
     private val detailViewModel: DetailProductViewModel by lazy {
         val factory = ProductViewModelFactory(repository)
         ViewModelProvider(this, factory)[DetailProductViewModel::class.java]
+    }
+
+    @Suppress("DEPRECATION")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        this.setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -79,34 +79,25 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
                 if (favoriteProduct.isEmpty()) View.VISIBLE else View.GONE
         }
 
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.fav_menu, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when (menuItem.itemId) {
-                    R.id.menu_trash -> {
-                        AlertDialog.Builder(requireContext()).apply {
-                            setTitle(context.getString(R.string.delete_confirmation))
-                            setMessage(context.getString(R.string.delete_confirmation_question))
-                            setPositiveButton(context.getString(R.string.yes_act)) { _, _ ->
-                                favoriteViewModel.deleteAll()
-                            }
-                            setNegativeButton(context.getString(R.string.no_act)) { dialog, _ ->
-                                dialog.dismiss()
-                            }
-                            show()
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_trash -> {
+                    AlertDialog.Builder(requireContext()).apply {
+                        setTitle(context.getString(R.string.delete_confirmation))
+                        setMessage(context.getString(R.string.delete_confirmation_question))
+                        setPositiveButton(context.getString(R.string.yes_act)) { _, _ ->
+                            favoriteViewModel.deleteAll()
                         }
-                        true
+                        setNegativeButton(context.getString(R.string.no_act)) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        show()
                     }
-
-                    else -> false
+                    true
                 }
+                else -> false
             }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
+        }
         binding.progressBar.visibility = View.GONE
     }
 
@@ -136,5 +127,13 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        detailViewModel.clearProductDetail()
+        detailViewModel.clearStoreDetail()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        detailViewModel.clearProductDetail()
+        detailViewModel.clearStoreDetail()
     }
 }
