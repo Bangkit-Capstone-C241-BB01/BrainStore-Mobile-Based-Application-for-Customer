@@ -337,8 +337,8 @@ class ProductRepository private constructor(private val userPreference: UserPref
     }
 
 
-    fun clearSearch() {
-        _productData.value = emptyList()
+    fun clearMessage() {
+        _message.value = null
     }
 
     fun clearProductDetail() {

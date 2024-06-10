@@ -44,7 +44,7 @@ class HomeViewModel(private val repository: ProductRepository) : ViewModel() {
         }
     }
 
-    fun clearSearch() {
-        repository.clearSearch()
+    fun clearMessage() {
+        repository.clearMessage()
     }
 }

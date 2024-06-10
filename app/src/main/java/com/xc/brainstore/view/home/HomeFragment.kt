@@ -5,7 +5,6 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +34,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
     private lateinit var productAdapter: ProductAdapter
     private var productDetail: ProductResponseItem? = null
     private var storeDetail: SellerResponse? = null
+    private var searchQuery: String? = null
     private val repository by lazy { Injection.provideProductRepository(requireActivity()) }
 
     private val homeViewModel: HomeViewModel by lazy {
@@ -69,13 +69,16 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
                 .setOnEditorActionListener { _, actionId, _ ->
                     if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                         val query = searchView.text.toString()
-                        homeViewModel.searchProduct(query)
-                        searchBar.setText(query)
-                        searchView.hide()
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            prevIcon.visibility = View.VISIBLE
-                        }, 300)
-                        searched = true
+                        searchQuery = query
+                        searchQuery?.let {
+                            homeViewModel.searchProduct(it)
+                            searchBar.setText(it)
+                            searchView.hide()
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                prevIcon.visibility = View.VISIBLE
+                            }, 300)
+                            searched = true
+                        }
                         true
                     } else {
                         false
@@ -86,7 +89,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
                 if (newState == SearchView.TransitionState.SHOWN) {
                     prevIcon.visibility = View.GONE
                 } else if (newState == SearchView.TransitionState.HIDDEN) {
-                    if (searched) {
+                    if (searched && searchBar.text.isNotBlank()) {
                         prevIcon.visibility = View.VISIBLE
                     } else {
                         prevIcon.visibility = View.GONE
@@ -94,21 +97,32 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
                 }
             }
 
-            prevIcon.setOnClickListener {
-                searchBar.setText("")
-                prevIcon.visibility = View.GONE
-                searchBar.clearFocus()
-                cardView.visibility = View.VISIBLE
+            if (searchQuery?.isNotBlank() == true) {
+                searchBar.setText(searchQuery)
+                prevIcon.visibility = View.VISIBLE
+            } else {
+                homeViewModel.clearMessage()
+                reset()
+            }
 
-                updateCardSelection(binding.allCardView, binding.all, true)
-                updateCardSelection(binding.newestCardView, binding.newest, false)
-                updateCardSelection(binding.popularCardView, binding.popular, false)
-                updateCardSelection(binding.locationCardView, binding.location, false)
-                homeViewModel.getProduct()
+            prevIcon.setOnClickListener {
+                reset()
             }
         }
 
         return binding.root
+    }
+
+    private fun reset() {
+        binding.searchBar.setText("")
+        binding.prevIcon.visibility = View.GONE
+        binding.searchBar.clearFocus()
+
+        updateCardSelection(binding.allCardView, binding.all, true)
+        updateCardSelection(binding.newestCardView, binding.newest, false)
+        updateCardSelection(binding.popularCardView, binding.popular, false)
+        updateCardSelection(binding.locationCardView, binding.location, false)
+        homeViewModel.getProduct()
     }
 
     private fun setupRecyclerView() {
@@ -149,21 +163,10 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
                 checkIfReadyToNavigate()
             }
         }
-
-        detailViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            showLoading(isLoading)
-        }
-
-        detailViewModel.message.observe(viewLifecycleOwner) { message ->
-            message?.let {
-                showToast(it)
-            }
-        }
     }
 
     private fun checkIfReadyToNavigate() {
         if (productDetail != null && storeDetail != null) {
-            Log.d("HomeFragment", "Navigating to DetailProductActivity")
             navigateToDetailFragment(productDetail!!, storeDetail!!)
             productDetail = null
             storeDetail = null
@@ -264,7 +267,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
 
     override fun onResume() {
         super.onResume()
-        Log.d("HomeFragment", "onResume called")
         detailViewModel.clearProductDetail()
         detailViewModel.clearStoreDetail()
     }
