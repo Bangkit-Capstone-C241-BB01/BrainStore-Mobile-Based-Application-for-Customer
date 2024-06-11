@@ -112,5 +112,6 @@ Please grant permission in the settings.</string>
 
     <string name="share_via">Share Via: </string>
     <string name="share_msg">Check out this product called %1$s from %2$s store in the BrainStore app!</string>
+    <string name="delete_fav_msg">Nothing can be deleted, the favorites list is empty.</string>
 
 </resources>

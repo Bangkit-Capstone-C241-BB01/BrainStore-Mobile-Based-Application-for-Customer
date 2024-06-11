@@ -113,5 +113,6 @@ Mohon berikan izin dalam pengaturan.</string>
 
     <string name="share_via">Bagikan Melalui: </string>
     <string name="share_msg">Lihat produk bernama %1$s dari toko %2$s ini di aplikasi BrainStore!</string>
+    <string name="delete_fav_msg">Tidak ada yang dapat dihapus, daftar favorit kosong.</string>
 
 </resources>

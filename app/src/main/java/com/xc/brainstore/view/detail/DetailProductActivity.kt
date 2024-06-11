@@ -122,7 +122,7 @@ class DetailProductActivity : AppCompatActivity() {
                             } else {
                                 val favProductDetail = FavoriteProduct(
                                     storeId = productDetailList.storeId,
-                                    id = productDetailList.productId,
+                                    productId = productDetailList.productId,
                                     productImg = productDetailList.productImg,
                                     productName = productDetailList.productName,
                                     productPrice = productDetailList.productPrice,

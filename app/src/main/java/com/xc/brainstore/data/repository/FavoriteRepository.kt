@@ -19,6 +19,10 @@ class FavoriteRepository(private val favoriteDao: FavoriteDao) {
         favoriteDao.deleteAll()
     }
 
+    fun hasFavorites(): LiveData<Boolean> {
+        return favoriteDao.hasFavorites()
+    }
+
     fun getFavoriteProductById(id: Int): LiveData<FavoriteProduct?> {
         return favoriteDao.getFavoriteProductById(id)
     }

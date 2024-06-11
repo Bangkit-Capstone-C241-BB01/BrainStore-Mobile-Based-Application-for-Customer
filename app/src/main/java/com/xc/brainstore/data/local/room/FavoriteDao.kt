@@ -19,6 +19,9 @@ interface FavoriteDao {
     @Query("SELECT * from favorite_table ORDER BY product_id ASC")
     fun getAllFavorites(): LiveData<MutableList<FavoriteProduct>>
 
+    @Query("SELECT EXISTS(SELECT 1 FROM favorite_table LIMIT 1)")
+    fun hasFavorites(): LiveData<Boolean>
+
     @Query("DELETE FROM favorite_table")
     suspend fun deleteAll()
 

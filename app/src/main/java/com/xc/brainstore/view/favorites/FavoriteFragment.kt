@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -82,16 +83,22 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_trash -> {
-                    AlertDialog.Builder(requireContext()).apply {
-                        setTitle(context.getString(R.string.delete_confirmation))
-                        setMessage(context.getString(R.string.delete_confirmation_question))
-                        setPositiveButton(context.getString(R.string.yes_act)) { _, _ ->
-                            favoriteViewModel.deleteAll()
+                    favoriteViewModel.hasFavorites().observe(viewLifecycleOwner) { hasData ->
+                        if (hasData) {
+                            AlertDialog.Builder(requireContext()).apply {
+                                setTitle(context.getString(R.string.delete_confirmation))
+                                setMessage(context.getString(R.string.delete_confirmation_question))
+                                setPositiveButton(context.getString(R.string.yes_act)) { _, _ ->
+                                    favoriteViewModel.deleteAll()
+                                }
+                                setNegativeButton(context.getString(R.string.no_act)) { dialog, _ ->
+                                    dialog.dismiss()
+                                }
+                                show()
+                            }
+                        } else {
+                            Toast.makeText(requireContext(), getString(R.string.delete_fav_msg), Toast.LENGTH_SHORT).show()
                         }
-                        setNegativeButton(context.getString(R.string.no_act)) { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        show()
                     }
                     true
                 }
@@ -102,7 +109,7 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(product: FavoriteProduct) {
-        detailViewModel.getProductDetail(product.id)
+        detailViewModel.getProductDetail(product.productId)
         detailViewModel.getStoreDetail(product.storeId)
 
         detailViewModel.productDetail.observe(viewLifecycleOwner) { productDetail ->

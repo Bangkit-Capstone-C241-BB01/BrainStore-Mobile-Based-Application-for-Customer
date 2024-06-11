@@ -9,13 +9,14 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "favorite_table")
 @Parcelize
 data class FavoriteProduct(
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0,
 
     @ColumnInfo(name = "store_id")
     var storeId: Int? = null,
 
     @ColumnInfo(name = "product_id")
-    var id: Int? = null,
+    var productId: Int? = null,
 
     @ColumnInfo(name = "product_img")
     var productImg: String? = null,

@@ -40,4 +40,8 @@ class FavoriteViewModel(private val favoriteRepository: FavoriteRepository) : Vi
     fun getFavoriteProductById(id: Int): LiveData<FavoriteProduct?> {
         return favoriteRepository.getFavoriteProductById(id)
     }
+
+    fun hasFavorites(): LiveData<Boolean> {
+        return favoriteRepository.hasFavorites()
+    }
 }
