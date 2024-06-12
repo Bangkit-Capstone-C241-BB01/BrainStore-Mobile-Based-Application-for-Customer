@@ -117,6 +117,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnItemClickListener {
         binding.searchBar.setText("")
         binding.prevIcon.visibility = View.GONE
         binding.searchBar.clearFocus()
+        binding.cardView.visibility = View.VISIBLE
 
         updateCardSelection(binding.allCardView, binding.all, true)
         updateCardSelection(binding.newestCardView, binding.newest, false)
